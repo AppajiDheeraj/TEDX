@@ -11,9 +11,6 @@ import {
 import CountdownTimer from "../components/Counter";
 import PastSpeakers from "../components/PastSpeakers";
 import Footer from "../components/Footer";
-import { motion, useAnimation } from "framer-motion";
-import { useEffect, useState } from "react";
-import CircularText from "../components/CircularText";
 
 const futureDate = new Date();
 futureDate.setDate(futureDate.getDate() + 30);
