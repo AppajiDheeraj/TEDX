@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap' );
+
+.board {
+  display: flex;
+  align-items: center;
+  gap: 0.5ch;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 500;
+  padding: 0.75rem;
+  background: hsl(0 0% 10%);
+  border-radius: 8px;
+  color: white;
+  border: 1px solid hsl(0 0% 20%);
+  box-shadow: 0 10px 30px hsla(0, 0%, 0%, 0.3);
+}
+
+.flip-line {
+  display: flex;
+  gap: 0.25ch;
+}
+
+.separator {
+  font-size: 3rem;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+.flip {
+  font-size: 3rem;
+  width: 1.25ch;
+  line-height: 1.1;
+  display: inline-block;
+  height: 1.1em;
+  text-align: center;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 300px;
+}
+
+.flip::before,
+.flip::after {
+  content: '';
+  position: absolute;
+  width: calc(10% - 0.05em);
+  height: calc(20% - 0.05em);
+  background: hsl(0 0% 15%);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.flip::before {
+  left: 0;
+}
+
+.flip::after {
+  right: 0;
+}
+
+.flip > div {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background: radial-gradient(
+      100% 100% at 50% 100%,
+      hsl(0 0% 100% / 0.1),
+      transparent
+    ),
+    hsl(0 0% 20%);
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+}
+
+/* The four halves of the digit */
+.unfold.top {
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+  transform-origin: bottom;
+}
+.unfold.bottom {
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  transform-origin: top;
+  transform: rotateX(180deg);
+}
+.fold.top {
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+  transform-origin: bottom;
+  z-index: 3;
+}
+.fold.bottom {
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  transform-origin: top;
+  z-index: 2;
+}
