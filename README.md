@@ -1,11 +1,18 @@
 # TEDxNITKSurathkal Website
+<div align="center">
 
 ![TEDx Logo](public/Logo.png)
 
-![React](https://img.shields.io/badge/React-19.1.1-61dafb?logo=react)
-![Vite](https://img.shields.io/badge/Vite-7.1.2-646cff?logo=vite)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.12-06b6d4?logo=tailwindcss)
-![License](https://img.shields.io/badge/License-MIT-green)
+<br/>
+
+<p>
+  <img src="https://img.shields.io/badge/React-19.1.1-61dafb?logo=react" alt="React Badge"/>
+  <img src="https://img.shields.io/badge/Vite-7.1.2-646cff?logo=vite" alt="Vite Badge"/>
+  <img src="https://img.shields.io/badge/TailwindCSS-4.1.12-06b6d4?logo=tailwindcss" alt="Tailwind CSS Badge"/>
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="License Badge"/>
+</p>
+
+</div>
 
 ## Project Overview
 
@@ -82,5 +89,3 @@ The website reflects TEDx's core values through:
 - Mobile-first responsive design
 
 ---
-
-*This independent TEDx event is operated under license from [TED](https://www.ted.com/)*
