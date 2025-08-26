@@ -8,65 +8,15 @@ import {
   FaArrowRight,
   FaArrowLeft,
 } from "react-icons/fa";
-// CORRECT
 import CountdownTimer from "../components/Counter";
 import PastSpeakers from "../components/PastSpeakers";
 import Footer from "../components/Footer";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect, useState } from "react";
+import CircularText from "../components/CircularText";
 
-// Future date for countdown timer
 const futureDate = new Date();
-futureDate.setDate(futureDate.getDate() + 30); // Set to 30 days from now
-
-// --- Helper Components for Reusability ---
-
-const CircularText = ({ text, size }) => {
-  const characters = text.split("");
-  const degree = 360 / characters.length;
-  const radius = size / 2;
-  return (
-    <div
-      className="relative animate-spin-slow"
-      style={{ width: size, height: size }}
-    >
-      {characters.map((char, i) => (
-        <span
-          key={i}
-          className="absolute top-0 left-1/2 origin-[0_var(--radius)] text-sm font-semibold uppercase"
-          style={{
-            height: `${radius}px`,
-            transform: `translateX(-50%) rotate(${i * degree}deg)`,
-            "--radius": `${radius}px`,
-          }}
-        >
-          {char}
-        </span>
-      ))}
-    </div>
-  );
-};
-
-const RotatingInstagramLink = () => (
-  <div className="fixed bottom-8 right-8 w-36 h-36 z-50 flex items-center justify-center">
-    <a
-      href="https://www.instagram.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="absolute z-10 w-16 h-16 flex items-center justify-center rounded-full transition-transform hover:scale-110"
-      style={{
-        background:
-          "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90% )",
-      }}
-      aria-label="Follow us on Instagram"
-    >
-      <FaInstagram className="w-8 h-8 text-white" />
-    </a>
-    <div className="absolute">
-      <CircularText text="FOLLOW US ON INSTAGRAM • " size={144} />
-    </div>
-  </div>
-);
-
-// --- Main Page Component ---
+futureDate.setDate(futureDate.getDate() + 30);
 
 export const HomePage = () => {
   const countdownData = [
@@ -86,11 +36,8 @@ export const HomePage = () => {
   ];
 
   return (
-    <div className="bg-black text-white w-full min-h-screen font-sans overflow-x-hidden">
+    <div className="bg-black text-white w-full min-h-screen font-['Roboto',Helvetica] overflow-x-hidden">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        {/* ================================================================= */}
-        {/* HEADER SECTION                                                  */}
-        {/* ================================================================= */}
         <header className="w-full flex justify-between items-center py-6 sm:py-8 z-20 relative">
           <img src="/Logo.png" alt="TEDx Logo" className="h-16 sm:h-20" />
           <Button className="bg-[#e62b1e] hover:bg-[#c52115] text-white font-bold rounded-full flex items-center space-x-2 py-3 pl-6 pr-0 text-base">
@@ -101,39 +48,35 @@ export const HomePage = () => {
           </Button>
         </header>
 
-        {/* ================================================================= */}
-        {/* HERO SECTION                                                    */}
-        {/* ================================================================= */}
-        <main className="flex-grow flex items-center justify-center min-h-[calc(100vh-150px)] -mt-20">
-          <div className="relative w-full max-w-4xl flex justify-center items-center">
+        <main className="flex-grow flex items-center justify-center min-h-[calc(100vh-150px)] -mt-10">
+          <div className="relative w-full max-w-7xl flex justify-center items-center z-0">
             <img
               src="/Home.png"
               alt="A large red X graphic"
-              className="w-full max-w-[75%]"
+              className="w-full max-w-[50%]"
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-center font-black uppercase text-center">
-              <h1 className="text-2xl md:text-4xl lg:text-5xl tracking-widest -translate-y-1/4">
-                IDEAS WORTH&nbsp;&nbsp;
-                <span className="text-red-600">SPREADING</span>
+            <div className="absolute inset-0 top-[-px] flex flex-col items-center justify-center font-black uppercase text-center">
+              <h1 className="text-2xl font-['Roboto',Helvetica] md:text-4xl lg:text-5xl tracking-widest -translate-y-1/4">
+                IDEAS
+                WORTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span className="">SPREADING</span>
               </h1>
+              <div className="h-40"></div>
               <h2 className="text-2xl md:text-4xl lg:text-5xl tracking-widest translate-y-1/2">
-                LOCALLY <span className="text-red-600">AMPLIFIED</span>
+                LOCALLY
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                <span className="">AMPLIFIED</span>
               </h2>
             </div>
           </div>
         </main>
 
-        {/* ================================================================= */}
-        {/* EVENT DETAILS SECTION (Design Preserved)                        */}
-        {/* ================================================================= */}
         <section className="relative py-24">
-          <div className="bg-black flex items-center justify-center p-4 font-sans">
+          <div className="bg-black flex items-center justify-center p-4 font-['Roboto',Helvetica]">
             <div className="bg-[#1C1C1C] max-w-6xl w-full p-8 rounded-lg">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                {/* Left Image Column */}
                 <div className="md:col-span-3 flex justify-center">
                   <div className="bg-white p-2 w-[250px] h-[275px] flex items-center justify-center">
-                    {/* Placeholder for the red 'X' logo */}
                     <img
                       src="/Home.png"
                       alt="Event Logo"
@@ -142,41 +85,31 @@ export const HomePage = () => {
                   </div>
                 </div>
 
-                {/* Middle Content Column */}
                 <div className="md:col-span-6 text-white">
-                  {/* TEDx Logo */}
                   <div className="mb-4">
                     <img src="/Logo.png" alt="" className="h-20" />
                   </div>
 
-                  {/* Description */}
                   <p className="text-gray-400 text-sm leading-relaxed mb-6 -mt-1">
                     TEDxNITKSurathkal brings TED Talks and live speakers
                     together to inspire ideas and conversations. Our event
                     creates a space for meaningful discussions and connections.
                   </p>
 
-                  {/* Info Bubbles - Updated with Flexbox */}
-                  {/* Info Bubbles - Updated with Flexbox & Fixed Size */}
                   <div className="flex flex-col gap-y-4">
-                    {/* First Row: Date and Speakers */}
                     <div className="flex justify-between items-center gap-x-4">
-                      {/* Date Bubble */}
                       <div className="bg-black rounded-full w-52 h-16 flex flex-col justify-center items-center">
                         <p className="text-gray-400 text-xs">DATE</p>
                         <p className="font-semibold whitespace-nowrap">
                           6:00 PM, 15th Feb, 2025
                         </p>
                       </div>
-                      {/* Speakers Bubble */}
                       <div className="bg-black rounded-full w-48 h-16 flex flex-col justify-center items-center">
                         <p className="text-gray-400 text-xs">SPEAKERS</p>
                         <p className="font-semibold">8</p>
                       </div>
                     </div>
-                    {/* Second Row: Location */}
                     <div className="flex justify-center items-center">
-                      {/* Location Bubble */}
                       <div className="bg-black rounded-full w-48 h-16 flex flex-col justify-center items-center">
                         <p className="text-gray-400 text-xs">LOCATION</p>
                         <p className="font-semibold">SJA, NITK Surathkal</p>
@@ -185,7 +118,6 @@ export const HomePage = () => {
                   </div>
                 </div>
 
-                {/* Right QR Code Column */}
                 <div className="md:col-span-3 flex items-center gap-4">
                   <div className="h-64 border-l-2 border-dashed border-gray-500"></div>
                   <div className="text-white space-y-2 flex flex-col items-center">
@@ -208,45 +140,34 @@ export const HomePage = () => {
               </div>
             </div>
           </div>
-          {/* ================================================================= */}
-          {/* COUNTDOWN TIMER (Design Preserved)                              */}
-          {/* ================================================================= */}
+
           <section className="relative py-12 flex justify-center items-center">
             <CountdownTimer targetDate={futureDate.toISOString()} />
           </section>
         </section>
 
-        {/* ================================================================= */}
-        {/* WHAT IS TEDx SECTION (Improved Design)                          */}
-        {/* ================================================================= */}
         <section className="py-20 sm:py-28">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              {/* Left Column: Image */}
               <div className="lg:col-span-5 flex justify-center">
-                {/* Using a container to add a subtle glow effect behind the image */}
                 <div className="relative">
                   <img
                     src="/hand.png"
                     alt="Hand reaching for a spark of an idea"
                     className="relative z-10 w-full max-w-sm lg:max-w-none"
                   />
-                  {/* Subtle background glow for a more premium feel */}
                   <div className="absolute inset-0 bg-red-600/20 blur-3xl rounded-full opacity-20"></div>
                 </div>
               </div>
 
-              {/* Right Column: Text Content */}
               <div className="lg:col-span-7 text-white">
-                {/* Section Header with a subtle red accent line */}
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-1 bg-red-600"></div>
-                  <h2 className="text-4xl sm:text-5xl font-bold tracking-tighter">
-                    What is <span className="text-red-600">TEDx</span>?
+                  <h2 className="font-['Roboto',Helvetica] font-bold text-white text-5xl">
+                    What is <span className="text-red-600">TEDx</span> ?
                   </h2>
                 </div>
 
-                {/* Main Paragraph with improved typography */}
                 <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
                   A TEDx event is a local gathering where live TED-like talks
                   and performances are shared with the community. These events
@@ -255,7 +176,6 @@ export const HomePage = () => {
                   <b>"ideas worth spreading."</b>
                 </p>
 
-                {/* Secondary Paragraph */}
                 <p className="mt-4 text-lg sm:text-xl text-gray-300 leading-relaxed">
                   Our event,{" "}
                   <span className="font-semibold text-white">
@@ -266,10 +186,9 @@ export const HomePage = () => {
                   connections right here in our community.
                 </p>
 
-                {/* Call to Action Button */}
                 <div className="mt-8">
                   <a
-                    href="#" // Replace with your link to the official TEDx program page
+                    href="#"
                     className="inline-block bg-red-600 text-white font-semibold px-8 py-3 rounded-md text-lg hover:bg-red-700 transition-colors duration-300"
                   >
                     Learn More
@@ -280,17 +199,15 @@ export const HomePage = () => {
           </div>
         </section>
 
-        {/* ================================================================= */}
-        {/* THE EXPERIENCE SECTION                                          */}
-        {/* ================================================================= */}
         <section className="relative pt-24 pb-6 text-center">
-          <h2 className="font-['Inter',Helvetica] font-bold text-white text-5xl">
+          <h2 className="font-['Roboto',Helvetica] font-bold text-white text-5xl">
             THE EXPERIENCE
           </h2>
+          <div className="w-20 h-1 bg-red-600 mx-auto mt-4"></div>
           <Card className="bg-[#65656533] rounded-[20px] p-8 md:p-12 mt-10 border-0">
             <div className="flex flex-col lg:flex-row items-center gap-8">
               <div className="lg:w-2/3 text-left space-y-6">
-                <p className="font-['Inter',Helvetica] text-xl text-[#ffffff] leading-7">
+                <p className="font-['Roboto',Helvetica] text-xl text-[#ffffff] leading-7">
                   Fostered By The Vision Of Bringing Innovative And Inspiring
                   Ideas To The Student Community, Tedxnitksurathkal Began At
                   Nitk In 2011. With Successful Editions In 2011, 2012, 2016,
@@ -299,7 +216,7 @@ export const HomePage = () => {
                   Boundaries, Spark Curiosity, And Encourage People To Rethink
                   What&apos;s Possible.
                 </p>
-                <p className="font-['Inter',Helvetica] text-lg text-[#999999]">
+                <p className="font-['Roboto',Helvetica] text-lg text-[#999999]">
                   A Tale that leaves a mark and ignites inspiration
                 </p>
                 <Button className="bg-[#e62b1e] hover:bg-[#c52115] text-white font-bold rounded-full flex items-center space-x-2 py-3 pl-6 pr-0 text-base">
@@ -320,27 +237,21 @@ export const HomePage = () => {
           </Card>
         </section>
 
-        {/* ================================================================= */}
-        {/* ASYMMETRICAL CARDS SECTION (Design Preserved)                   */}
-        {/* ================================================================= */}
         <section className="relative pb-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Left Column */}
             <div className="lg:col-span-7 space-y-8">
               <Card className="relative bg-[#65656533] rounded-[20px] p-8 h-auto md:h-[256px] flex flex-col justify-between border-0 overflow-hidden">
-                {/* Text content remains in the normal flow */}
                 <div>
-                  <h3 className="font-['Inter',Helvetica] text-2xl font-bold text-[#ffffffd9] mb-4">
+                  <h3 className="font-['Roboto',Helvetica] text-2xl font-bold text-[#ffffffd9] mb-4">
                     LOCATION
                   </h3>
-                  <p className="font-['Inter',Helvetica] text-xl text-[#ffffffa6] max-w-md">
+                  <p className="font-['Roboto',Helvetica] text-xl text-[#ffffffa6] max-w-md">
                     Hugging the Arabian sea along its length, our venue is a
                     welcoming retreat for sparking up conversations about things
                     that matter.
                   </p>
                 </div>
 
-                {/* The image is positioned absolutely relative to the card */}
                 <div className="absolute bottom-[-40px] right-[-50px] z-10">
                   <img
                     src="/globe.png"
@@ -352,10 +263,10 @@ export const HomePage = () => {
 
               <Card className="bg-[#65656533] relative rounded-[20px] p-8 h-auto md:h-[315px] flex flex-col justify-between border-0 overflow-hidden">
                 <div>
-                  <h3 className="font-['Inter',Helvetica] text-2xl font-bold text-[#ffffffd9] mb-4">
+                  <h3 className="font-['Roboto',Helvetica] text-2xl font-bold text-[#ffffffd9] mb-4">
                     COMMUNITY STRENGTH
                   </h3>
-                  <p className="font-['Inter',Helvetica] text-xl text-[#ffffffa6] max-w-xs">
+                  <p className="font-['Roboto',Helvetica] text-xl text-[#ffffffa6] max-w-xs">
                     Standing 6000+ strong, our community comprises of curious
                     individuals with an ever increasing appetite for learning.
                   </p>
@@ -370,14 +281,13 @@ export const HomePage = () => {
               </Card>
             </div>
 
-            {/* Right Column */}
             <div className="lg:col-span-5 space-y-8">
               <Card className="bg-[#65656533] rounded-[20px] p-8 h-auto md:h-[346px] flex flex-col justify-between relative overflow-hidden border-0">
                 <div>
-                  <h3 className="font-['Inter',Helvetica] text-2xl font-bold text-[#ffffffd9] mb-4">
+                  <h3 className="font-['Roboto',Helvetica] text-2xl font-bold text-[#ffffffd9] mb-4">
                     LEGACY
                   </h3>
-                  <p className="font-['Inter',Helvetica] text-xl text-[#ffffffa6] max-w-xs">
+                  <p className="font-['Roboto',Helvetica] text-xl text-[#ffffffa6] max-w-xs">
                     Ranking amongst the top educational institutes in India, our
                     university adds a key ingredient in realising our vision.
                   </p>
@@ -391,10 +301,10 @@ export const HomePage = () => {
                 </div>
               </Card>
               <Card className="bg-[#65656533] rounded-[20px] p-8 h-auto md:h-[223px] border-0">
-                <h3 className="font-['Inter',Helvetica] text-2xl font-bold text-[#ffffffd9] mb-4">
+                <h3 className="font-['Roboto',Helvetica] text-2xl font-bold text-[#ffffffd9] mb-0">
                   IMPACTFUL IDEAS
                 </h3>
-                <p className="font-['Inter',Helvetica] text-xl text-[#ffffffa6]">
+                <p className="font-['Roboto',Helvetica] text-xl text-[#ffffffa6]">
                   We strive to bring forward powerful ideas that challenge the
                   norms and carry the potential to transform lives.
                 </p>
@@ -410,15 +320,12 @@ export const HomePage = () => {
           </div>
         </section>
 
-        {/* ================================================================= */}
-        {/* OUR SPEAKERS SECTION (Improved Design)                          */}
-        {/* ================================================================= */}
-        <section className="bg-black py-20 sm:py-28">
+        <section className="bg-black py-10 sm:py-28">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Section Header */}
             <div className="text-center mb-0">
-              <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tighter">
-                Our <span className="text-red-600">Speakers</span>
+              <h2 className="font-['Roboto',Helvetica] font-bold text-white text-5xl">
+                OUR <span className="text-red-600">SPEAKERS</span>
+                <div className="w-20 h-1 bg-red-600 mx-auto mt-4"></div>
               </h2>
               <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
                 Prepare to be inspired by a curated lineup of brilliant
@@ -426,10 +333,8 @@ export const HomePage = () => {
               </p>
             </div>
 
-            {/* Main Content Area */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="absolute w-[334px] h-[334px] top-0 left-0 rounded-full blur-[60px] bg-[linear-gradient(180deg,rgba(230,43,30,0.35)_0%,rgba(128,24,17,0.35)_100%)] opacity-50" />
-              {/* Left Column: Text Content */}
               <div className="text-center lg:text-left">
                 <h3 className="text-3xl sm:text-4xl font-semibold text-white leading-tight">
                   Meet The Minds Shaping Our Future
@@ -439,7 +344,6 @@ export const HomePage = () => {
                   groundbreaking ideas and fresh perspectives.
                 </p>
 
-                {/* "Stay Tuned" Button */}
                 <div className="mt-8">
                   <button
                     disabled
@@ -450,17 +354,14 @@ export const HomePage = () => {
                 </div>
               </div>
 
-              {/* Right Column: Visual Element */}
               <div className="flex justify-center">
                 <div className="relative w-full max-w-sm">
                   <div className="absolute w-[334px] h-[334px] top-0 left-0 rounded-full blur-[60px] bg-[linear-gradient(180deg,rgba(230,43,30,0.35)_0%,rgba(128,24,17,0.35)_100%)] opacity-80" />
-                  {/* The main image */}
                   <img
-                    src="/think.png" // Your placeholder image
+                    src="/think.png"
                     alt="A silhouette representing an upcoming speaker"
                     className="relative z-10 rounded-lg"
                   />
-                  {/* Decorative background shapes for a modern, abstract feel */}
                   <div className="absolute -top-8 -left-8 w-32 h-32 bg-red-600/10 rounded-full blur-xl"></div>
                   <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-white/5 rounded-lg transform rotate-45 blur-lg"></div>
                 </div>
@@ -469,75 +370,20 @@ export const HomePage = () => {
           </div>
         </section>
 
-        {/* ================================================================= */}
-        {/* PAST SPEAKERS SECTION                                           */}
-        {/* ================================================================= */}
         <section className="relative py-24 text-center">
-          <h2 className="font-['Inter',Helvetica] font-bold text-white text-5xl">
-            PAST SPEAKERS
-          </h2>
-          <div className="flex flex-col lg:flex-row items-center gap-12 mt-16">
-            <div className="lg:w-1/2 relative flex items-center justify-center h-[646px]">
-              <div className="absolute w-[334px] h-[334px] top-0 left-0 rounded-full blur-[60px] bg-[linear-gradient(180deg,rgba(230,43,30,0.35)_0%,rgba(128,24,17,0.35)_100%)] opacity-50" />
-              <div className="absolute w-[386px] h-[386px] bg-[#d9d9d9] rounded-full z-10" />{" "}
-              {/* Main speaker image */}
-              <div className="absolute w-[99px] h-[99px] top-[94px] right-[80px] bg-[#d9d9d9] rounded-full" />
-              <div className="absolute w-[99px] h-[99px] top-[221px] right-[0px] bg-[#d9d9d9] rounded-full" />
-              <div className="absolute w-[99px] h-[99px] top-[375px] right-[-6px] bg-[#d9d9d9] rounded-full" />
-              <div className="absolute w-[99px] h-[99px] top-[518px] right-[81px] bg-[#d9d9d9] rounded-full" />
-            </div>
-            <div className="lg:w-1/2 text-left space-y-4">
-              <h3 className="font-['Inter',Helvetica] font-bold text-[#e53e3e] text-[46px]">
-                ARJUN MALHOTRA
-              </h3>
-              <p className="font-['Inter',Helvetica] text-[28px] text-[#ffffffa6]">
-                Founder Of Edureach India
-              </p>
-              <div className="flex items-center gap-4">
-                <div>
-                  <p className="font-['Inter',Helvetica] text-2xl text-[#ffffffa6]">
-                    &#34;breaking Barriers In Rural Education&#34;
-                  </p>
-                  <p className="font-['Inter',Helvetica] text-2xl text-[#ffffffa6] mt-4">
-                    TEDXNITKSURATHKAL 2022
-                  </p>
-                </div>
-              </div>
-              <p className="font-['Inter',Helvetica] text-2xl text-[#ffffffa6] pt-4">
-                Innovation Is Meaningless Unless It Reaches Everyone.
-              </p>
-              <div className="flex items-center space-x-4 pt-4">
-                <Button
-                  size="icon"
-                  className="bg-[#d9d9d9] hover:bg-white text-black rounded-full w-12 h-12"
-                >
-                  <FaArrowLeft size={20} />
-                </Button>
-                <Button
-                  size="icon"
-                  className="bg-[#d9d9d9] hover:bg-white text-black rounded-full w-12 h-12"
-                >
-                  <FaArrowRight size={20} />
-                </Button>
-              </div>
-            </div>
-          </div>
+          <PastSpeakers />
         </section>
 
-        {/* ================================================================= */}
-        {/* A TRIBUTE SECTION (Corrected for Vertical Centering)            */}
-        {/* ================================================================= */}
         <section className="relative py-24 text-center">
           <div className="text-center mb-12">
-            <h2 className="font-['Inter',Helvetica] font-bold text-white text-5xl">
+            <h2 className="font-['Roboto',Helvetica] font-bold text-white text-5xl">
               A TRIBUTE
             </h2>
             <div className="w-20 h-1 bg-red-600 mx-auto mt-4"></div>
           </div>
-          {/* Use Flexbox with `items-center` to vertically align both columns */}
           <div className="flex flex-col md:flex-row items-center gap-12 mt-10">
-            {/* 1. Text Column: This will now be vertically centered. */}
-            <div className="md:w-1/2 text-left font-['Inter',Helvetica] text-lg text-[#ffffff] space-y-6">
+            <div className="md:w-1/2 text-left font-['Roboto',Helvetica] text-lg text-[#ffffff] space-y-6">
+              <div className="absolute w-[334px] h-[334px] top-0 left-0 rounded-full blur-[60px] bg-[linear-gradient(180deg,rgba(230,43,30,0.35)_0%,rgba(128,24,17,0.35)_100%)] opacity-38" />
               <p className="font-semibold text-white">
                 In Memory of Govind Jeevan
               </p>
@@ -571,7 +417,6 @@ export const HomePage = () => {
               <p className="font-semibold text-white">Team TEDxNITKSurathkal</p>
             </div>
 
-            {/* 2. Image Column: This column sets the height reference. */}
             <div className="md:w-1/2 flex justify-center">
               <img
                 src="/Govind_jeevan.png"
@@ -582,16 +427,11 @@ export const HomePage = () => {
           </div>
         </section>
 
-        {/* ================================================================= */}
-        {/* SIGN UP SECTION (Exact Replica)                                 */}
-        {/* ================================================================= */}
         <section className="relative py-24 text-center">
-          {/* Main Heading */}
           <h2 className="font-['Actor',Helvetica] font-normal text-white text-4xl md:text-5xl">
             Upcoming Events? Theme Reveal? Speaker List?
           </h2>
 
-          {/* Sub-heading with decorative lines */}
           <div className="flex items-center justify-center gap-4 mt-6">
             <div className="w-16 h-px bg-gray-600"></div>
             <p className="font-['Actor',Helvetica] font-normal text-lg md:text-xl text-gray-300">
@@ -601,12 +441,9 @@ export const HomePage = () => {
             <div className="w-16 h-px bg-gray-600"></div>
           </div>
 
-          {/* The Waitlist Form Card */}
           <div className="relative max-w-lg mx-auto mt-12">
-            {/* This div creates the outer red glow effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-orange-500 rounded-3xl blur opacity-20"></div>
 
-            {/* The main card container */}
             <Card className="relative bg-black border border-red-900/50 rounded-3xl p-8 md:p-10">
               <CardContent className="p-0">
                 <form className="flex flex-col gap-6">
@@ -614,7 +451,6 @@ export const HomePage = () => {
                     Subscribe Now !! 🎉
                   </h3>
 
-                  {/* First Name Input */}
                   <div className="relative">
                     <label
                       htmlFor="firstName"
@@ -630,7 +466,6 @@ export const HomePage = () => {
                     />
                   </div>
 
-                  {/* Last Name Input */}
                   <div className="relative">
                     <label
                       htmlFor="lastName"
@@ -646,7 +481,6 @@ export const HomePage = () => {
                     />
                   </div>
 
-                  {/* Email Address Input */}
                   <div className="relative">
                     <label
                       htmlFor="email"
@@ -662,7 +496,6 @@ export const HomePage = () => {
                     />
                   </div>
 
-                  {/* Submit Button */}
                   <div className="mt-4">
                     <Button
                       type="submit"
@@ -681,7 +514,6 @@ export const HomePage = () => {
         </section>
       </div>{" "}
       <Footer />
-      {/* <RotatingInstagramLink /> */}
     </div>
   );
 };
